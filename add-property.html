@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List Your Property — EstateFolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .add-hero{ background: var(--ink); color: var(--paper); padding: 64px 0 40px; }
+  .add-hero h1{ color: var(--paper); font-size: clamp(30px,4vw,44px); }
+  .add-hero p{ color: rgba(241,239,230,0.68); margin-top:12px; max-width:520px; }
+  .add-wrap{ max-width: 860px; margin: -40px auto 100px; padding: 0 24px; }
+  .add-card{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: 0 30px 60px -30px rgba(22,38,58,0.3); }
+  .fieldset{ margin-bottom: 34px; }
+  .fieldset legend{ font-family: var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color: var(--accent-deep); margin-bottom:16px; padding:0; }
+  .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+  .grid3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:18px; }
+  #pin-map{ width:100%; height: 340px; border-radius: 2px; border: 1px solid var(--line); margin-top: 10px; }
+  .pin-hint{ font-size:12px; color: var(--ink-soft); margin-top:8px; }
+  .coord-row{ display:flex; gap:14px; margin-top:10px; }
+  .coord-row .form-group{ flex:1; margin-bottom:0; }
+  .checkbox-row{ display:flex; align-items:center; gap:10px; }
+  .checkbox-row input{ width:auto; }
+  .upload-box{ border: 1.5px dashed var(--line); border-radius: 2px; padding: 26px; text-align:center; color: var(--ink-soft); font-size:13px; }
+  .upload-box input{ margin-top:10px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo">Estate<span>Folio</span></a>
+    <nav class="nav-links">
+      <a href="index.html#listings">Listings</a>
+      <a href="index.html#map">Map</a>
+      <a href="add-property.html">List Your Property</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-cta"><a href="index.html" class="btn btn-ghost">← Back to Listings</a></div>
+  </div>
+</header>
+
+<section class="add-hero">
+  <div class="wrap">
+    <div class="eyebrow">List a Property</div>
+    <h1>Add your property<br>to the index.</h1>
+    <p>Fill in the details below, drop a pin on the map for the exact location, and your listing will appear on EstateFolio immediately.</p>
+  </div>
+</section>
+
+<div class="add-wrap">
+  <div class="add-card">
+    <form id="add-property-form" enctype="multipart/form-data">
+
+      <fieldset class="fieldset">
+        <legend>Basic Details</legend>
+        <div class="form-group">
+          <label for="title">Property Title *</label>
+          <input type="text" id="title" name="title" placeholder="e.g. Sunrise Meadow Villa" required>
+        </div>
+        <div class="grid3">
+          <div class="form-group">
+            <label for="property_type">Property Type *</label>
+            <select id="property_type" name="property_type" required>
+              <option>House</option>
+              <option>Apartment</option>
+              <option>Villa</option>
+              <option>Plot</option>
+              <option>Commercial</option>
+              <option>Penthouse</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="listing_type">Listing Type *</label>
+            <select id="listing_type" name="listing_type" required>
+              <option>Sale</option>
+              <option>Rent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option>Available</option>
+              <option>Pending</option>
+              <option>Sold</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="form-group">
+            <label for="price">Price (USD) *</label>
+            <input type="number" id="price" name="price" min="0" step="1" placeholder="e.g. 485000" required>
+          </div>
+          <div class="form-group">
+            <label for="year_built">Year Built</label>
+            <input type="number" id="year_built" name="year_built" min="1800" max="2100" placeholder="e.g. 2019">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Specifications</legend>
+        <div class="grid3">
+          <div class="form-group">
+            <label for="bedrooms">Bedrooms</label>
+            <input type="number" id="bedrooms" name="bedrooms" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label for="bathrooms">Bathrooms</label>
+            <input type="number" id="bathrooms" name="bathrooms" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label for="area_sqft">Area (sqft)</label>
+            <input type="number" id="area_sqft" name="area_sqft" min="0" placeholder="e.g. 3200">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="amenities">Amenities (comma-separated)</label>
+          <input type="text" id="amenities" name="amenities" placeholder="Swimming Pool, Garden, Garage, Air Conditioning">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Describe the property, its condition, neighborhood, and highlights…"></textarea>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="featured" name="featured">
+          <label for="featured" style="margin:0; text-transform:none; font-family:var(--font-body); font-size:13px;">Mark as featured listing</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Location</legend>
+        <div class="grid2">
+          <div class="form-group">
+            <label for="address">Street Address *</label>
+            <input type="text" id="address" name="address" placeholder="e.g. 221 Meadow Lane" required>
+          </div>
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input type="text" id="city" name="city" placeholder="e.g. Austin" required>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="form-group">
+            <label for="state">State / Province</label>
+            <input type="text" id="state" name="state" placeholder="e.g. Texas">
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="e.g. USA">
+          </div>
+        </div>
+
+        <label>Drop a pin on the map to set the exact location *</label>
+        <div id="pin-map"></div>
+        <p class="pin-hint">Click anywhere on the map to place the marker, or drag the marker to fine-tune it. Coordinates fill in automatically below.</p>
+        <div class="coord-row">
+          <div class="form-group">
+            <label for="latitude">Latitude *</label>
+            <input type="text" id="latitude" name="latitude" readonly required>
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude *</label>
+            <input type="text" id="longitude" name="longitude" readonly required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Photo</legend>
+        <div class="upload-box">
+          <div>Upload a primary photo of the property (JPG, PNG, or WEBP — max 5MB)</div>
+          <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png,.webp">
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-brass btn-block">Publish Property</button>
+      <div class="form-msg" id="add-form-msg"></div>
+    </form>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap footer-bottom">
+    <span>© 2026 EstateFolio. All rights reserved.</span>
+    <span>Built for buyers, renters, and agents worldwide.</span>
+  </div>
+</footer>
+
+<script>
+const API_BASE = 'php/';
+const GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY'; // <-- put your key here (same one as index.html)
+
+let pinMap, pinMarker;
+
+function initPinMap() {
+  const center = { lat: 39.8283, lng: -98.5795 };
+  pinMap = new google.maps.Map(document.getElementById('pin-map'), { center, zoom: 4 });
+
+  pinMap.addListener('click', (e) => setPin(e.latLng.lat(), e.latLng.lng()));
+}
+
+function setPin(lat, lng) {
+  document.getElementById('latitude').value = lat.toFixed(7);
+  document.getElementById('longitude').value = lng.toFixed(7);
+
+  if (pinMarker) {
+    pinMarker.setPosition({ lat, lng });
+  } else {
+    pinMarker = new google.maps.Marker({
+      position: { lat, lng },
+      map: pinMap,
+      draggable: true
+    });
+    pinMarker.addListener('dragend', (e) => setPin(e.latLng.lat(), e.latLng.lng()));
+  }
+  pinMap.panTo({ lat, lng });
+}
+
+function loadGoogleMaps() {
+  if (GOOGLE_MAPS_API_KEY === 'YOUR_GOOGLE_MAPS_API_KEY') {
+    document.getElementById('pin-map').innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--ink-soft);font-size:13px;padding:16px;text-align:center;">Add your Google Maps API key in add-property.html to enable the pin-drop map. You can still type coordinates manually below.</div>';
+    document.getElementById('latitude').readOnly = false;
+    document.getElementById('longitude').readOnly = false;
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initPinMap&loading=async`;
+  script.async = true;
+  document.head.appendChild(script);
+}
+loadGoogleMaps();
+
+document.getElementById('add-property-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const msgBox = document.getElementById('add-form-msg');
+
+  if (!document.getElementById('latitude').value || !document.getElementById('longitude').value) {
+    msgBox.className = 'form-msg err';
+    msgBox.textContent = 'Please drop a pin on the map (or enter coordinates) to set the property location.';
+    return;
+  }
+
+  const formData = new FormData(this);
+  try {
+    const res = await fetch(API_BASE + 'add_property.php', { method: 'POST', body: formData });
+    const data = await res.json();
+    msgBox.className = 'form-msg ' + (data.success ? 'ok' : 'err');
+    msgBox.textContent = data.success
+      ? 'Property published! Redirecting to listings…'
+      : (data.error || 'Something went wrong. Please check the form and try again.');
+    if (data.success) {
+      this.reset();
+      if (pinMarker) pinMarker.setMap(null);
+      pinMarker = null;
+      setTimeout(() => { window.location.href = 'index.html#listings'; }, 1400);
+    }
+  } catch (err) {
+    msgBox.className = 'form-msg err';
+    msgBox.textContent = 'Could not reach the server. Make sure the PHP backend is running (see README).';
+  }
+});
+</script>
+</body>
+</html>

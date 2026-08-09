@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EstateFolio — Find Your Next Address</title>
+<meta name="description" content="Browse houses, apartments, villas and commercial properties for sale and rent worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- =========================================================
+     NAVIGATION
+======================================================== -->
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">Estate<span>Folio</span></a>
+    <nav class="nav-links">
+      <a href="#listings">Listings</a>
+      <a href="#map">Map</a>
+      <a href="add-property.html">List Your Property</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="add-property.html" class="btn btn-ghost">+ Add Property</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- =========================================================
+     HERO
+======================================================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Global Property Marketplace</div>
+      <h1>Every address<br><em>tells a story.</em></h1>
+      <p class="sub">Search houses, apartments, villas, plots and commercial spaces from cities around the world — then pin the exact location on the map before you visit.</p>
+      <div class="hero-actions">
+        <a href="#listings" class="btn btn-brass">Browse Listings</a>
+        <a href="add-property.html" class="btn btn-ghost" style="border-color:rgba(241,239,230,0.4); color:#F1EFE6;">List a Property</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong id="stat-count">120+</strong><span>Active Listings</span></div>
+        <div><strong>34</strong><span>Cities Covered</span></div>
+        <div><strong>4.9</strong><span>Client Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div style="position:relative;">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900" alt="Featured property">
+        <span class="lot-tag">LOT NO. 003</span>
+      </div>
+      <div class="hero-card-body">
+        <h4>Lakeview Family House</h4>
+        <div class="meta"><span>5 BD</span><span>4 BA</span><span>4,100 SQFT</span></div>
+        <div class="price">$620,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FILTER BAR + LISTINGS
+======================================================== "listings" -->
+<main>
+  <section class="section" id="listings">
+    <div class="wrap">
+
+      <form class="filter-bar" id="filter-form">
+        <div>
+          <label for="f-type">Property Type</label>
+          <select id="f-type" name="type">
+            <option value="">All Types</option>
+            <option>House</option>
+            <option>Apartment</option>
+            <option>Villa</option>
+            <option>Plot</option>
+            <option>Commercial</option>
+            <option>Penthouse</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-listing">Sale / Rent</label>
+          <select id="f-listing" name="listing">
+            <option value="">Any</option>
+            <option>Sale</option>
+            <option>Rent</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-city">City</label>
+          <input type="text" id="f-city" name="city" placeholder="e.g. Austin">
+        </div>
+        <div>
+          <label for="f-beds">Min Bedrooms</label>
+          <select id="f-beds" name="bedrooms">
+            <option value="">Any</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-max">Max Price</label>
+          <input type="number" id="f-max" name="max_price" placeholder="Any">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div class="section-head" style="margin-top:56px;">
+        <div>
+          <div class="eyebrow">The Index</div>
+          <h2>Current Listings</h2>
+        </div>
+        <p class="lede" id="results-count">Loading properties…</p>
+      </div>
+
+      <div class="property-grid" id="property-grid">
+        <!-- Property cards injected here by JS -->
+      </div>
+
+      <div class="load-more-row" id="empty-state" style="display:none;">
+        <p style="color:var(--ink-soft);">No properties match those filters yet. Try widening your search.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       MAP SECTION
+  ======================================================== -->
+  <section class="section map-section" id="map">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Locate on Map</div>
+          <h2>Where These Properties Sit</h2>
+        </div>
+        <p class="lede">Every pin corresponds to a live listing — click one to preview the property.</p>
+      </div>
+      <div id="property-map"></div>
+      <div class="map-note">
+        <p>Map data © Google. Pin locations are approximate; exact addresses are shared after inquiry.</p>
+        <a href="add-property.html" class="btn btn-ghost">Add a Property to the Map →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CTA STRIP
+  ======================================================== -->
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Selling or renting out a property?</h2>
+        <p>List it in minutes with full details, photos, and a map pin so buyers can find it instantly.</p>
+      </div>
+      <a href="add-property.html" class="btn btn-brass">+ Add Your Property</a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CONTACT / CUSTOMER INQUIRY FORM
+  ======================================================== -->
+  <section class="section contact-section" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        <div class="eyebrow" style="color:var(--accent);">Get In Touch</div>
+        <h2>Tell us what<br>you're looking for.</h2>
+        <p>Share a few details and one of our agents will reach out with matching properties and a viewing schedule.</p>
+        <div class="info-row"><div class="k">Office</div><div class="v">221 Meadow Lane, Austin, TX, USA</div></div>
+        <div class="info-row"><div class="k">Phone</div><div class="v">+1 (512) 555-0148</div></div>
+        <div class="info-row"><div class="k">Email</div><div class="v">hello@estatefolio.example</div></div>
+        <div class="info-row"><div class="k">Hours</div><div class="v">Mon–Sat, 9:00–18:00</div></div>
+      </div>
+
+      <form class="contact-form" id="inquiry-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-name">Full Name *</label>
+            <input type="text" id="c-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email Address *</label>
+            <input type="email" id="c-email" name="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="c-phone">Phone Number</label>
+            <input type="tel" id="c-phone" name="phone" placeholder="+1 555 000 0000">
+          </div>
+          <div class="form-group">
+            <label for="c-budget">Budget Range</label>
+            <select id="c-budget" name="budget">
+              <option value="">Select a range</option>
+              <option>Under $100,000</option>
+              <option>$100,000 – $300,000</option>
+              <option>$300,000 – $600,000</option>
+              <option>$600,000 – $1,000,000</option>
+              <option>$1,000,000+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="c-property">Interested Property (optional)</label>
+          <input type="text" id="c-property" name="property_reference" placeholder="e.g. Lakeview Family House">
+          <input type="hidden" id="c-property-id" name="property_id">
+        </div>
+        <div class="form-group">
+          <label for="c-message">Message *</label>
+          <textarea id="c-message" name="message" required placeholder="Tell us about the property you're looking for, preferred locations, timeline, etc."></textarea>
+        </div>
+        <button type="submit" class="btn btn-brass btn-block">Send Inquiry</button>
+        <div class="form-msg" id="form-msg"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- =========================================================
+     PROPERTY DETAIL MODAL
+======================================================== -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     FOOTER
+======================================================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <a href="#" class="logo">Estate<span style="color:var(--accent);">Folio</span></a>
+      <p class="tag">A worldwide marketplace for houses, apartments, villas, plots and commercial spaces — for sale or rent.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#listings">All Listings</a></li>
+        <li><a href="#map">Map View</a></li>
+        <li><a href="add-property.html">Add Property</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 EstateFolio. All rights reserved.</span>
+    <span>Built for buyers, renters, and agents worldwide.</span>
+  </div>
+</footer>
+
+<script>
+/* =============================================================
+   CONFIG
+============================================================= */
+const API_BASE = 'php/';                    // folder containing the PHP endpoints
+const GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY'; // <-- put your key here
+
+/* Fallback sample data, used only if the PHP backend / database
+   isn't reachable yet (e.g. previewing index.html without a server). */
+const SAMPLE_PROPERTIES = [
+  {id:1,title:'Sunrise Meadow Villa',property_type:'Villa',listing_type:'Sale',price:485000,bedrooms:4,bathrooms:3,area_sqft:3200,city:'Austin',state:'Texas',country:'USA',address:'221 Meadow Lane',latitude:30.2672,longitude:-97.7431,description:'A bright, airy villa with an open-plan living area, private garden, and a two-car garage.',amenities:['Swimming Pool','Garden','Garage','Air Conditioning'],image:'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900',featured:1,status:'Available'},
+  {id:2,title:'Downtown Skyline Apartment',property_type:'Apartment',listing_type:'Rent',price:2200,bedrooms:2,bathrooms:2,area_sqft:1150,city:'Austin',state:'Texas',country:'USA',address:'88 Congress Ave',latitude:30.2669,longitude:-97.7428,description:'Modern high-rise apartment with panoramic city views and 24/7 concierge.',amenities:['Gym','Elevator','Concierge','Balcony'],image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900',featured:1,status:'Available'},
+  {id:3,title:'Lakeview Family House',property_type:'House',listing_type:'Sale',price:620000,bedrooms:5,bathrooms:4,area_sqft:4100,city:'Seattle',state:'Washington',country:'USA',address:'15 Lakeview Drive',latitude:47.6062,longitude:-122.3321,description:'Spacious family home with a private dock, finished basement, and mountain views.',amenities:['Dock','Fireplace','Basement','Garden'],image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900',featured:0,status:'Available'},
+  {id:4,title:'The Ivory Penthouse',property_type:'Penthouse',listing_type:'Sale',price:1250000,bedrooms:3,bathrooms:3,area_sqft:2600,city:'New York',state:'New York',country:'USA',address:'900 Fifth Avenue',latitude:40.7736,longitude:-73.9566,description:'Ultra-luxury penthouse with a private rooftop terrace overlooking Central Park.',amenities:['Rooftop Terrace','Concierge','Gym','Wine Cellar'],image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900',featured:1,status:'Available'},
+  {id:5,title:'Riverside Commercial Plaza',property_type:'Commercial',listing_type:'Rent',price:8500,bedrooms:0,bathrooms:4,area_sqft:6000,city:'Chicago',state:'Illinois',country:'USA',address:'45 River Street',latitude:41.8781,longitude:-87.6298,description:'Prime ground-floor commercial space suited for retail or office use.',amenities:['Parking','Loading Dock','Security'],image:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900',featured:0,status:'Available'},
+  {id:6,title:'Golden Hills Building Plot',property_type:'Plot',listing_type:'Sale',price:150000,bedrooms:0,bathrooms:0,area_sqft:8000,city:'Denver',state:'Colorado',country:'USA',address:'3 Golden Hills Road',latitude:39.7392,longitude:-104.9903,description:'Cleared residential plot with mountain views, ready for construction.',amenities:['Mountain View','Utilities Ready'],image:'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900',featured:0,status:'Available'},
+  {id:7,title:'Maple Street Cottage',property_type:'House',listing_type:'Rent',price:1800,bedrooms:3,bathrooms:2,area_sqft:1600,city:'Portland',state:'Oregon',country:'USA',address:'12 Maple Street',latitude:45.5152,longitude:-122.6784,description:'Charming cottage with a wraparound porch and updated kitchen.',amenities:['Porch','Garden','Fireplace'],image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900',featured:0,status:'Available'},
+  {id:8,title:'Coral Bay Beach Villa',property_type:'Villa',listing_type:'Sale',price:980000,bedrooms:4,bathrooms:4,area_sqft:3500,city:'Miami',state:'Florida',country:'USA',address:'77 Coral Bay Road',latitude:25.7617,longitude:-80.1918,description:'Beachfront villa with private beach access and an infinity pool.',amenities:['Private Beach','Infinity Pool','Rooftop Lounge'],image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900',featured:1,status:'Available'}
+];
+
+let currentProperties = [];
+let map, markers = [];
+
+/* =============================================================
+   FORMAT HELPERS
+============================================================= */
+const fmtPrice = (p, listing) => '$' + Number(p).toLocaleString() + (listing === 'Rent' ? ' /mo' : '');
+const lotNo = (id) => 'LOT NO. ' + String(id).padStart(3, '0');
+
+/* =============================================================
+   FETCH + RENDER PROPERTIES
+============================================================= */
+async function loadProperties(params = {}) {
+  const grid = document.getElementById('property-grid');
+  grid.innerHTML = '<p style="color:var(--ink-soft);">Loading properties…</p>';
+
+  let properties;
+  try {
+    const qs = new URLSearchParams(params).toString();
+    const res = await fetch(API_BASE + 'get_properties.php' + (qs ? '?' + qs : ''));
+    if (!res.ok) throw new Error('Backend not reachable');
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || 'Unknown error');
+    properties = data.properties;
+  } catch (err) {
+    // Backend unavailable (e.g. static preview) — fall back to sample data, filtered client-side.
+    properties = SAMPLE_PROPERTIES.filter(p => {
+      if (params.type && p.property_type !== params.type) return false;
+      if (params.listing && p.listing_type !== params.listing) return false;
+      if (params.city && !p.city.toLowerCase().includes(params.city.toLowerCase())) return false;
+      if (params.bedrooms && p.bedrooms < Number(params.bedrooms)) return false;
+      if (params.max_price && p.price > Number(params.max_price)) return false;
+      return true;
+    });
+  }
+
+  currentProperties = properties;
+  renderGrid(properties);
+  renderMapMarkers(properties);
+}
+
+function renderGrid(properties) {
+  const grid = document.getElementById('property-grid');
+  const count = document.getElementById('results-count');
+  const empty = document.getElementById('empty-state');
+
+  count.textContent = properties.length + ' propert' + (properties.length === 1 ? 'y' : 'ies') + ' found';
+
+  if (!properties.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = properties.map(p => `
+    <article class="property-card" data-id="${p.id}">
+      <div class="photo">
+        <img src="${p.image}" alt="${p.title}" loading="lazy">
+        <span class="lot-number">${lotNo(p.id)}</span>
+        ${p.featured == 1 ? '<span class="badge-featured">Featured</span>' : ''}
+        <span class="status-pill status-${p.status}">${p.status}</span>
+      </div>
+      <div class="body">
+        <h3>${p.title}</h3>
+        <p class="loc">${p.address}, ${p.city}${p.state ? ', ' + p.state : ''}</p>
+        <div class="specs">
+          <span>${p.bedrooms} BD</span><span>${p.bathrooms} BA</span><span>${Number(p.area_sqft).toLocaleString()} SQFT</span>
+        </div>
+        <div class="price-row">
+          <div class="price">${fmtPrice(p.price, p.listing_type)}<br><small>${p.listing_type === 'Rent' ? 'For Rent' : 'For Sale'} · ${p.property_type}</small></div>
+          <a href="#" class="view-link" onclick="openModal(${p.id}); return false;">View →</a>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+/* =============================================================
+   PROPERTY DETAIL MODAL
+============================================================= */
+function openModal(id) {
+  const p = currentProperties.find(x => x.id == id);
+  if (!p) return;
+
+  document.getElementById('modal-content').innerHTML = `
+    <img src="${p.image}" alt="${p.title}">
+    <div class="modal-body">
+      <span class="eyebrow">${lotNo(p.id)} · ${p.property_type}</span>
+      <h3>${p.title}</h3>
+      <p class="loc">${p.address}, ${p.city}${p.state ? ', ' + p.state : ''}${p.country ? ', ' + p.country : ''}</p>
+      <div class="specs">
+        <span>${p.bedrooms} Bedrooms</span><span>${p.bathrooms} Bathrooms</span><span>${Number(p.area_sqft).toLocaleString()} SQFT</span>
+      </div>
+      <div class="price">${fmtPrice(p.price, p.listing_type)}</div>
+      <p class="desc">${p.description || ''}</p>
+      ${(p.amenities && p.amenities.length) ? `<div class="amenity-tags">${p.amenities.map(a => `<span>${a}</span>`).join('')}</div>` : ''}
+      <button class="btn btn-primary" onclick="requestAboutProperty('${p.title.replace(/'/g,"\\'")}', ${p.id})">Inquire About This Property</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('active'); }
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target.id === 'modal-overlay') closeModal(); });
+
+function requestAboutProperty(title, id) {
+  closeModal();
+  document.getElementById('c-property').value = title;
+  document.getElementById('c-property-id').value = id;
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('c-name').focus();
+}
+
+/* =============================================================
+   FILTER FORM
+============================================================= */
+document.getElementById('filter-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const fd = new FormData(this);
+  const params = {};
+  for (const [k, v] of fd.entries()) if (v) params[k] = v;
+  loadProperties(params);
+  document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+});
+
+/* =============================================================
+   INQUIRY / CONTACT FORM
+============================================================= */
+document.getElementById('inquiry-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const msgBox = document.getElementById('form-msg');
+  const payload = Object.fromEntries(new FormData(this).entries());
+
+  try {
+    const res = await fetch(API_BASE + 'contact.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    msgBox.className = 'form-msg ' + (data.success ? 'ok' : 'err');
+    msgBox.textContent = data.success ? data.message : (data.error || 'Something went wrong. Please try again.');
+    if (data.success) this.reset();
+  } catch (err) {
+    msgBox.className = 'form-msg err';
+    msgBox.textContent = 'Could not reach the server. Make sure the PHP backend is running (see README).';
+  }
+});
+
+/* =============================================================
+   GOOGLE MAP — plots every property as a marker
+============================================================= */
+function renderMapMarkers(properties) {
+  if (!map || !window.google) return;
+  markers.forEach(m => m.setMap(null));
+  markers = [];
+
+  const bounds = new google.maps.LatLngBounds();
+  const infoWindow = new google.maps.InfoWindow();
+
+  properties.forEach(p => {
+    const position = { lat: Number(p.latitude), lng: Number(p.longitude) };
+    const marker = new google.maps.Marker({
+      position,
+      map,
+      title: p.title,
+      label: { text: '$', color: '#16263A', fontWeight: '700' }
+    });
+    marker.addListener('click', () => {
+      infoWindow.setContent(`
+        <div style="font-family:Inter,sans-serif; max-width:200px;">
+          <strong style="font-family:Fraunces,serif; font-size:15px;">${p.title}</strong><br>
+          <span style="font-size:12px; color:#555;">${p.city}${p.state ? ', ' + p.state : ''}</span><br>
+          <span style="font-family:'IBM Plex Mono',monospace; color:#9C6B26; font-weight:600;">${fmtPrice(p.price, p.listing_type)}</span><br>
+          <a href="#" onclick="openModal(${p.id}); return false;" style="font-size:12px;">View details →</a>
+        </div>
+      `);
+      infoWindow.open(map, marker);
+    });
+    markers.push(marker);
+    bounds.extend(position);
+  });
+
+  if (properties.length) map.fitBounds(bounds);
+}
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('property-map'), {
+    center: { lat: 39.8283, lng: -98.5795 }, // center of the US as a sane default
+    zoom: 4,
+    mapId: 'ESTATEFOLIO_MAP'
+  });
+  renderMapMarkers(currentProperties);
+}
+
+function loadGoogleMaps() {
+  if (GOOGLE_MAPS_API_KEY === 'YOUR_GOOGLE_MAPS_API_KEY') {
+    document.getElementById('property-map').innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--ink-soft);font-size:14px;padding:20px;text-align:center;">Add your Google Maps API key in index.html (GOOGLE_MAPS_API_KEY) to enable the live map.</div>';
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap&loading=async`;
+  script.async = true;
+  document.head.appendChild(script);
+}
+
+/* =============================================================
+   INIT
+============================================================= */
+loadProperties();
+loadGoogleMaps();
+</script>
+</body>
+</html>
