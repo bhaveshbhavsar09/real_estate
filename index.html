@@ -57,7 +57,7 @@
       <div class="hero-card-body">
         <h4>Lakeview Family House</h4>
         <div class="meta"><span>5 BD</span><span>4 BA</span><span>4,100 SQFT</span></div>
-        <div class="price">$620,000</div>
+        <div class="price">₹6,20,000</div>
       </div>
     </div>
   </div>
@@ -199,11 +199,11 @@
             <label for="c-budget">Budget Range</label>
             <select id="c-budget" name="budget">
               <option value="">Select a range</option>
-              <option>Under $100,000</option>
-              <option>$100,000 – $300,000</option>
-              <option>$300,000 – $600,000</option>
-              <option>$600,000 – $1,000,000</option>
-              <option>$1,000,000+</option>
+              <option>Under ₹1,00,000</option>
+              <option>₹1,00,000 – ₹3,00,000</option>
+              <option>₹3,00,000 – ₹6,00,000</option>
+              <option>₹6,00,000 – ₹10,00,000</option>
+              <option>₹10,00,000+</option>
             </select>
           </div>
         </div>
@@ -298,7 +298,7 @@ let map, markers = [];
 /* =============================================================
    FORMAT HELPERS
 ============================================================= */
-const fmtPrice = (p, listing) => '$' + Number(p).toLocaleString() + (listing === 'Rent' ? ' /mo' : '');
+const fmtPrice = (p, listing) => '₹' + Number(p).toLocaleString('en-IN') + (listing === 'Rent' ? ' /mo' : '');
 const lotNo = (id) => 'LOT NO. ' + String(id).padStart(3, '0');
 
 /* =============================================================
@@ -459,7 +459,7 @@ function renderMapMarkers(properties) {
       position,
       map,
       title: p.title,
-      label: { text: '$', color: '#16263A', fontWeight: '700' }
+      label: { text: '₹', color: '#16263A', fontWeight: '700' }
     });
     marker.addListener('click', () => {
       infoWindow.setContent(`

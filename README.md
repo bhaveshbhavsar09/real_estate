@@ -113,5 +113,5 @@ your hosting control panel.
   `style.css` under `:root`.
 - **Sample data**: edit or remove the `INSERT INTO properties` block in
   `php/database.sql`, or delete rows directly once you have real listings.
-- **Currency**: prices are stored as plain decimals; the `$` symbol and
+- **Currency**: prices are stored as plain decimals; the `₹` symbol and
   formatting live in the `fmtPrice()` JS function in `index.html`.
